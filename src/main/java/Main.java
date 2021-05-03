@@ -19,5 +19,14 @@ public class Main {
         Map<String, String> headers = new HashMap<String, String>();
         headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, "172.123.12.19");
         messageSender.send(headers);
+
+        System.out.println();
+        GeoService geoService1 = new GeoServiceImpl();
+        LocalizationService localizationService1 = new LocalizationServiceImpl();
+        MessageSender messageSender1 = new MessageSenderImpl(geoService1, localizationService1);
+
+        Map<String, String> headers1 = new HashMap<String, String>();
+        headers1.put(MessageSenderImpl.IP_ADDRESS_HEADER, "89.23.12.19");
+        messageSender1.send(headers1);
     }
 }
