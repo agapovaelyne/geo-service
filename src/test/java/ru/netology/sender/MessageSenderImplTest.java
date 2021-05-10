@@ -20,7 +20,8 @@ public class MessageSenderImplTest {
     @Test
     public void test_ru_locale_when_russian_ip() {
         GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
-        Mockito.when(geoService.byIp(getIpForTest(RU)))
+        String ip = getIpForTest(RU);
+        Mockito.when(geoService.byIp(ip))
                 .thenReturn(new Location("Moscow", RUSSIA, null, 0));
         LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
         Mockito.when(localizationService.locale(RUSSIA))
@@ -29,7 +30,7 @@ public class MessageSenderImplTest {
         MessageSender messageSender = new MessageSenderImpl(geoService, localizationService);
 
         Map<String, String> headers = new HashMap<String, String>();
-        headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, getIpForTest(RU));
+        headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, ip);
 
         String expected = "Добро пожаловать";
         String actual = messageSender.send(headers);
@@ -39,7 +40,8 @@ public class MessageSenderImplTest {
     @Test
     public void test_usa_locale_when_russian_ip() {
         GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
-        Mockito.when(geoService.byIp(getIpForTest(US)))
+        String ip = getIpForTest(US);
+        Mockito.when(geoService.byIp(ip))
                 .thenReturn(new Location("New York", Country.USA, null,  0));
         LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
         Mockito.when(localizationService.locale(USA))
@@ -48,7 +50,7 @@ public class MessageSenderImplTest {
         MessageSender messageSender = new MessageSenderImpl(geoService, localizationService);
 
         Map<String, String> headers = new HashMap<String, String>();
-        headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, getIpForTest(US));
+        headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, ip);
 
         String expected = "Welcome";
         String actual = messageSender.send(headers);
